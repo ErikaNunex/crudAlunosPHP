@@ -10,4 +10,5 @@ class Aluno extends Pessoa
     public DateTime $dataDeNascimento;
     public bool $status;
     public string $endereco;
-}
+    
+} 
