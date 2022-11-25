@@ -13,6 +13,8 @@
                 <th>Matricula</th>
                 <th>CPF</th>
                 <th>Email</th>
+                <th>Data de Nascimento</th>
+                <th>genero</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -26,9 +28,11 @@
                         <td>{$aluno->matricula}</td>
                         <td>{$aluno->cpf}</td>
                         <td>{$aluno->email}</td>
+                        <td>{$aluno->dataNascimento}</td>
+                        <td>{$aluno->genero}</td>
                         <td>
-                            <button class='btn btn-outline-warning btn-sm'>editar</button>
-                            <button class='btn btn-outline-danger btn-sm'>excluir</button>
+                            <a href='/alunos/editar?id={$aluno->id}' class='btn btn-outline-warning btn-sm'>editar</a>
+                            <a href='/alunos/excluir?id={$aluno->id}' class='btn btn-outline-danger btn-sm'>excluir</a>
                         </td>
                     </tr>
                     ";

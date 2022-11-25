@@ -47,11 +47,19 @@ class AlunoController extends AbstractController
     }
     public function excluir():void
     {
-        $this->render('aluno/excluirAluno');
+        $id= $_GET['id'];
+        $rep = new AlunoRepository();
+        $rep->excluir($id);
+        $this->redirect('/alunos/listar');
     }
     public function editar():void
     {
-        $this->render('aluno/editarAluno');
+        if(true === empty($_POST)){
+            $id= $_GET['id'];
+            $rep = new AlunoRepository();
+            $aluno = $rep->buscarUm($id);
+            $this->render('aluno/editarAluno', [$aluno]);
+        }
     }
     public function gerarRelatorio():void
     {
