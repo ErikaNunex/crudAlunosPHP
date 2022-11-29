@@ -1,23 +1,25 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
+
 namespace App\Controller;
+
 abstract class AbstractController
 {
-    public function render(string $view, array $dados = []):void
+    public function renderizar(string $nomeDoArquivo, ?array $dados = null, bool $navbar = true) : void
     {
-        extract($dados);
-        include_once '../views/template/header.phtml';
-        
-        include '../views/template/menu.phtml';
-        
-        include_once "../views/{$view}.phtml";
-
-        include_once '../views/template/footer.phtml';
-    }
-    public function redirect(string $local):void
-    {
-        header('location: '.$local);
+        if(isset($dados)){
+            extract($dados);
+        }
+        include_once dirname(__DIR__) . "../../views/template/head.phtml";
+        $navbar === true && include_once dirname(__DIR__) . "../../views/template/navbar.phtml";
+        include_once dirname(__DIR__) . "../../views/{$nomeDoArquivo}.phtml";
+        include_once dirname(__DIR__) . "../../views/template/foot.phtml";
     }
 
+    public function redirecionar(string $onde) : void
+    {
+        header("Location:/{$onde}");
+        exit();
+    }
 }

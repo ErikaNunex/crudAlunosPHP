@@ -1,33 +1,37 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
+
 namespace App\Controller;
 
 use App\Repository\ProfessorRepository;
 
-class ProfessorController extends AbstractController 
+class ProfessorController extends AbstractController
 {
-   public function listar():void
+    public function listar() : void
     {
         $rep = new ProfessorRepository;
-        $professores = $rep->buscarTodos();
-       $this->render('professor/listarProfessor',[
-        'professores'=>$professores
-       ]);
+        $this->renderizar('professor/listar', [
+            'professores' => $rep->buscarTodos()
+        ]);
     }
-    public function cadastrar():void
+
+    public function novo() : void
     {
-        $this->render('professor/cadastrarProfessor');
+        $this->renderizar('professor/novo');
     }
-    public function excluir():void
+
+    public function editar() : void
+    {
+        $this->renderizar('professor/editar');
+    }
+
+    public function excluir() : void
     {
         $id = $_GET['id'];
-        $rep =new ProfessorRepository;
+        $rep = new ProfessorRepository();
         $rep->excluir($id);
-        $this->render('professor/excluirProfessor',);
+        
+        $this->redirecionar('professores/listar');
     }
-    public function editar():void
-    {
-        $this->render('professor/editarProfessor');
-    }
-}
+} 

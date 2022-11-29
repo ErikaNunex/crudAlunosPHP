@@ -5,13 +5,12 @@ declare(strict_types = 1);
 namespace App\Repository;
 
 use App\Connection\DatabaseConnection;
-use App\Model\Aluno;
+use App\Model\Curso;
 use PDO;
 
-class AlunoRepository implements RepositoryInterface
+class CursoRepository implements RepositoryInterface
 {
-
-    public const TABLE = 'tb_alunos';
+    public const TABLE = 'tb_cursos';
     public PDO $conexao;
 
     public function __construct()
@@ -21,29 +20,27 @@ class AlunoRepository implements RepositoryInterface
 
     public function buscarTodos(): iterable
     {
-        $sql = 'SELECT * FROM ' . self::TABLE;
+        $sql = "SELECT * FROM " . self::TABLE . " INNER JOIN tb_categorias ON tb_cursos.categoria_id = tb_categorias.id ORDER BY tb_cursos.id";
 
         $query = $this->conexao->query($sql);
         $query->execute();
-
-        return $query->fetchAll(PDO::FETCH_CLASS, Aluno::class);
+        return $query->fetchAll();
     }
-    
+
     public function buscarUm(string $id): object
     {
         $sql = "SELECT * FROM " . self::TABLE . " WHERE id=" . $id;
         $query = $this->conexao->query($sql);
         $query->execute();
 
-        return $query->fetchObject(Aluno::class);       
+        return $query->fetchObject(Curso::class);       
     }
 
     public function inserir(object $dados): object
     {
-        $matricula = date('Ymd') . substr($dados->cpf, -2);
         $sql = "INSERT INTO " . self::TABLE . 
-        "(nome, cpf, matricula, email, status, genero, dataNascimento) " . 
-        "VALUES ('{$dados->nome}', '{$dados->cpf}', '{$matricula}', '{$dados->email}', '1', '{$dados->genero}', '{$dados->dataNascimento}');";
+        "(nome, cargaHoraria, descricao, status, categoria_id) " . 
+        "VALUES ('{$dados->nome}', '{$dados->cargaHoraria}', '{$dados->descricao}', true ,'{$dados->categoria_id}');";
 
         $this->conexao->query($sql);
 
@@ -53,7 +50,7 @@ class AlunoRepository implements RepositoryInterface
     public function atualizar(object $novosDados, string $id): object
     {
         $sql = "UPDATE " . self::TABLE . 
-        " SET nome='{$novosDados->nome}', cpf='{$novosDados->cpf}', email='{$novosDados->email}', genero='{$novosDados->genero}', dataNascimento='{$novosDados->dataNascimento}'
+        " SET nome='{$novosDados->nome}', cargaHoraria='{$novosDados->cargaHoraria}', descricao='{$novosDados->descricao}', categoria_id='{$novosDados->categoria_id}'
         WHERE id = '{$id}';
         ";
 

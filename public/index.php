@@ -1,23 +1,23 @@
 <?php
 
-use App\Connection\DatabasesConnection;
+use App\Connection\DatabaseConnection;
 
-include_once '../vendor/autoload.php';
-include '../config/database.php';
+include dirname(__DIR__) . '../vendor/autoload.php';
+include dirname(__DIR__) . '../config/database.php';
 
+session_start();
 
-$rotas = require '../config/routes.php';
+$rotas = require dirname(__DIR__) . '../config/rotas.php';
 
-$url = $_SERVER['REQUEST_URI'];
-$rota = explode('?',$url)[0];
+$url = $_SERVER["REQUEST_URI"];
+$rota = explode("?", $url)[0];
 
-if(false === isset($rotas[$rota])){
-    echo "Erro 404";
+if(!isset($rotas[$rota])){
+    echo 'Erro 404';
     exit;
 }
 
 $controller = $rotas[$rota]['controller'];
 $method = $rotas[$rota]['method'];
 
-(new $controller)-> $method();
-;
+(new $controller)->$method();
