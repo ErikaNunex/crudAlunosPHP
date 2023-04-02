@@ -1,12 +1,13 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
+
 namespace App\Controller;
 
 class SiteController extends AbstractController
 {
-    public function inicio():void
+    public function inicio()
     {
-        $this->render('index');
+        $this->renderizar('index');
     }
 }

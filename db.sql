@@ -1,11 +1,8 @@
---Criando banco--
 CREATE DATABASE db_escola;
 
---Acessando o banco--
 USE db_escola;
 
---Criando tabela de aluno--
-CREATE TABLE tb_alunos(
+CREATE TABLE tb_alunos (
     id INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(100) NOT NULL,
     matricula VARCHAR(20) UNIQUE NOT NULL,
@@ -16,31 +13,82 @@ CREATE TABLE tb_alunos(
     cpf CHAR(11) UNIQUE NOT NULL
 );
 
-INSERT INTO tb_alunos (nome, matricula, email, status, genero, dataNascimento,cpf)
+INSERT INTO tb_alunos 
+(nome, matricula, email, status, genero, dataNascimento, cpf)
 VALUES
-('Maria', '1234', 'maria@email.com',true,'feminino','2001-09-12','12345026789'),
-('Lucas', '1235', 'lucas@email.com',true,'masculino','2000-04-01','12344026729'),
-('Julio', '1236', 'julio@email.com',true,'masculino','1999-01-05','12341026429')
-;
+('Maria', '1234123', 'maria@email.com', true, 'Feminino', '2001-09-12', '12312312312'),
+('Chiquim', '4434123', 'chiquim@email.com', true, 'Masculino', '2000-12-31', '44455588812'),
+('Joaquim', '5534123', 'joaquim@email.com', true, 'Não informado', '1997-06-27', '09812312390');
 
 SELECT * FROM tb_alunos;
 
---Criando tabela de professor--
-CREATE TABLE tb_professores(
+CREATE TABLE tb_professores (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(100) NOT NULL,
-    endereco VARCHAR(100) NOT NULL, 
+    endereco VARCHAR(45) NOT NULL,
+    formacao VARCHAR(45) NOT NULL,
     status TINYINT NOT NULL,
-    formacao VARCHAR(100),
-    genero VARCHAR(20) NOT NULL,
+    nome VARCHAR(100) NOT NULL,
     cpf CHAR(11) UNIQUE NOT NULL
 );
 
-INSERT INTO tb_professores (nome, endereco, status,formacao, genero, cpf)
+INSERT INTO tb_professores
+(nome, endereco, formacao, status, cpf)
 VALUES
-('Maria','Rua rua, 123, Bairro, Cidade',true,'formaçao??','feminino','12345022719'),
-('Lucas','Rua rua, 123, Bairro, Cidade',true,'formaçao??','masculino','12344016719'),
-('Julio','Rua rua, 123, Bairro, Cidade',true,'formaçao??','masculino','12341066459')
-;
+('Alessandro','Rua barca semi nova 123', 'HTML, CSS, JS, React', true, '12345612345'),
+('Allan','Rua idelfonso albano 222, ap 1403', 'SABE TUDO, BRABISSIMO', true, '99999999999'),
+('Gleidson', 'Rua oscar frança 88', 'Formado nas ruas', true, '22222222222');
 
 SELECT * FROM tb_professores;
+
+CREATE TABLE tb_categorias (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(50) NOT NULL
+);
+
+INSERT INTO tb_categorias (nome) 
+VALUES 
+('Profissionalizante'),
+('Tecnico'),
+('Graduação');
+
+SELECT * FROM tb_categorias;
+
+CREATE TABLE tb_cursos (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(50) NOT NULL,
+    cargaHoraria VARCHAR(50) NOT NULL,
+    descricao VARCHAR(100) UNIQUE NOT NULL,
+    status TINYINT NOT NULL,
+    categoria_id INT NOT NULL,
+    FOREIGN KEY (categoria_id) REFERENCES tb_categorias(id)
+);
+
+INSERT INTO tb_cursos
+(nome, cargaHoraria, descricao, status, categoria_id)
+VALUES
+('FullStack','192','Vai ficar profissional',1,1);
+
+SELECT * FROM tb_cursos;
+
+SELECT *
+FROM tb_cursos
+INNER JOIN tb_categorias
+ON tb_cursos.categoria_id = tb_categorias.id;
+
+CREATE TABLE tb_user (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    profile VARCHAR(20) NOT NULL
+);
+
+
+
+INSERT INTO tb_user
+(name, email, password, profile)
+VALUES
+('Alessandro','ale@email.com', '123456', 'perfil');
+
+SELECT * FROM tb_user;
+

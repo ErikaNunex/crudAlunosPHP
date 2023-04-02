@@ -1,0 +1,51 @@
+<section class="card card-body container-fluid">
+    <h1 class="text-center">Gerenciador de curso</h1>
+    <hr>
+    <div class="mt-2 w-100 d-flex justify-content-between ">
+        <a href="/cursos/novo" class="btn btn-outline-primary me-1">Adicionar curso</a>
+        <a href="/cursos/relatorio" target="_blank" class="btn btn-outline-primary">Gerar PDF</a>
+    </div>
+    <div class="row">
+       
+        
+            <table class="table table-striped table-hover table-bordered align-middle text-center mt-4">
+                <thead class="table-dark">
+                    <tr>
+                        <th>#ID</th>
+                        <th>Nome</th>
+                        <th>Carga Horaria</th>
+                        <th>Descrição</th>
+                        <th>Status</th>
+                        <th>Categoria</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    foreach ($cursos ?? [] as $cadaCurso) 
+                    {
+                        $estaAtivo = 'Não ativo';
+                        if ($cadaCurso[4] == 1) {
+                            $estaAtivo = 'Ativo';
+                        }
+                        echo "
+                        <tr>
+                            <td class='fw-bold'>{$cadaCurso[0]}</td>
+                            <td>{$cadaCurso[1]}</td>
+                            <td>{$cadaCurso[2]}</td>
+                            <td>{$cadaCurso[3]}</td>
+                            <td>{$estaAtivo}</td>
+                            <td>{$cadaCurso['nome']}</td>
+                            <td>
+                                <a href='/cursos/editar?id={$cadaCurso[0]}' class='btn btn-warning'>Editar</a>
+                                <a href='/cursos/excluir?id={$cadaCurso[0]}' class='btn btn-danger'>Excluir</a>
+                            </td>
+                        </tr>
+                    ";
+                    }
+                    ?>
+                </tbody>
+            </table>
+        
+    </div>
+</section>
