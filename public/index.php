@@ -12,7 +12,7 @@ $rotas = require dirname(__DIR__) . '../config/rotas.php';
 $url = $_SERVER["REQUEST_URI"];
 $rota = explode("?", $url)[0];
 
-if(!isset($rotas[$rota])){
+if (!isset($rotas[$rota])) {
     echo 'Erro 404';
     exit;
 }

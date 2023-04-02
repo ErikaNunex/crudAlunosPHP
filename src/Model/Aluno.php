@@ -12,5 +12,10 @@ class Aluno extends Pessoa
     public string $email;
     public bool $status;
     public string $genero;
+<<<<<<< HEAD
+    
+} 
+=======
     public string $dataNascimento;
 }
+>>>>>>> 3647881bcb544e7e374993117d1be21c8ae38bc9
