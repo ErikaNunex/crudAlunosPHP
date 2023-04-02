@@ -6,7 +6,8 @@ include_once '../vendor/autoload.php';
 include '../config/database.php';
 
 
-$rotas = require '../config/routes.php';
+// $rotas = require '../config/routes.php';
+include dirname(__DIR__) . ('../config/routes.php');
 
 $url = $_SERVER['REQUEST_URI'];
 $rota = explode('?',$url)[0];

@@ -9,6 +9,6 @@ class Aluno extends Pessoa
     public string $matricula;
     public DateTime $dataDeNascimento;
     public bool $status;
-    public string $endereco;
+    public string $genero;
     
 } 
